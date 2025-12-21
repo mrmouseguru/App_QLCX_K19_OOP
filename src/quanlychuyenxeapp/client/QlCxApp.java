@@ -1,4 +1,5 @@
 package quanlychuyenxeapp.client;
+import java.util.ArrayList;
 import java.util.Scanner;
 import quanlychuyenxeapp.provider.ChuyenXeNgoaiThanh;
 import quanlychuyenxeapp.provider.ChuyenXeNoiThanh;
@@ -10,11 +11,10 @@ import quanlychuyenxeapp.provider.ChuyenXeNoiThanh;
 public class QlCxApp {
     //khai báo 2 biến mảng để lưu danh sách xe
     //2 biến này là toàn cục - có tác dụng toàn hệ thống
-    static ChuyenXeNoiThanh[] dsCxNoiThanh = new ChuyenXeNoiThanh[50];
-    static ChuyenXeNgoaiThanh[] dsCxNgoaiThanh = new ChuyenXeNgoaiThanh[50];
+    static ArrayList<ChuyenXeNoiThanh> dsCxNoiThanh = new ArrayList();
+    static ArrayList<ChuyenXeNgoaiThanh> dsCxNgoaiThanh = new ArrayList();
     static Scanner keyboard = new Scanner(System.in);
-    static int sizeNoi = 0;
-    static int sizeNgoai = 0;
+   
     public static void main(String[] args) {
         int choice;
         initData();
@@ -73,7 +73,7 @@ public class QlCxApp {
     static void nhapChuyenXe()
     {
         System.out.print("[MA CHUYEN XE]:");
-            int maCx = keyboard.nextInt();
+            int maCx = keyboard.nextInt();//5Enter='\n'
             keyboard.nextLine();//nhận ký tự xuống dòng '\n'
 
             System.out.print("[HO TEN TAI XE]:");
@@ -93,8 +93,7 @@ public class QlCxApp {
                 float soKmDiDuoc = keyboard.nextFloat();
                 ChuyenXeNoiThanh cxNoi = new ChuyenXeNoiThanh(maCx, hoTenTx,
                         soXe, donGia, soTuyen, soKmDiDuoc);
-                dsCxNoiThanh[sizeNoi] = cxNoi;
-                sizeNoi++;
+                dsCxNoiThanh.add(cxNoi);
                 
             }
             
@@ -106,8 +105,7 @@ public class QlCxApp {
                 ChuyenXeNgoaiThanh cxNgoai = new ChuyenXeNgoaiThanh(maCx, 
                         hoTenTx, soXe, donGia, 
                         noiDen, soNgayDiDuoc);
-                dsCxNgoaiThanh[sizeNgoai] = cxNgoai;
-                sizeNgoai++;
+                dsCxNgoaiThanh.add(cxNgoai);
 
 
             }
@@ -118,26 +116,28 @@ public class QlCxApp {
         System.out.printf("%-15s%-20s%-15s%-20s%10s\n", "Ma Chuyen Xe", 
                 "Ho Ten Tai Xe","So xe", "Don gia",
                 "Thanh tien");
-        for(int i =0; i < sizeNoi; i++)
+        for(int i =0; i < dsCxNoiThanh.size(); i++)
         {
+           ChuyenXeNoiThanh cxNoi = dsCxNoiThanh.get(i);
             System.out.printf("%-15d%-20s%-15s%-20.0f%10.0f\n", 
-                    dsCxNoiThanh[i].getMaCx(),
-                    dsCxNoiThanh[i].getTenTx(),
-                    dsCxNoiThanh[i].getSoXe(),
-                    dsCxNoiThanh[i].getDonGia(),
-                    dsCxNoiThanh[i].tinhTien()
+                    cxNoi.getMaCx(),
+                    cxNoi.getTenTx(),
+                    cxNoi.getSoXe(),
+                    cxNoi.getDonGia(),
+                    cxNoi.tinhTien()
                     
             );
         }
         
-        for(int i =0; i < sizeNgoai; i++)
+        for(int i =0; i < dsCxNgoaiThanh.size(); i++)
         {
+            ChuyenXeNgoaiThanh cxNgoai = dsCxNgoaiThanh.get(i);
             System.out.printf("%-15d%-20s%-15s%-20.0f%10.0f\n", 
-                    dsCxNgoaiThanh[i].getMaCx(),
-                    dsCxNgoaiThanh[i].getTenTx(),
-                    dsCxNgoaiThanh[i].getSoXe(),
-                    dsCxNgoaiThanh[i].getDonGia(),
-                    dsCxNgoaiThanh[i].tinhTien()
+                    cxNgoai.getMaCx(),
+                    cxNgoai.getTenTx(),
+                    cxNgoai.getSoXe(),
+                    cxNgoai.getDonGia(),
+                    cxNgoai.tinhTien()
                     
             );
         }
@@ -165,10 +165,10 @@ public class QlCxApp {
                 900_000, 
                 "Ca Mau", 5.0f);
          
-        dsCxNoiThanh[0] = cxNoi1; sizeNoi++;
-        dsCxNoiThanh[1] = cxNoi2;sizeNoi++;
-        dsCxNgoaiThanh[0] = cxNgoai1;sizeNgoai++;
-        dsCxNgoaiThanh[1] = cxNgoai2;sizeNgoai++;
+        dsCxNoiThanh.add(cxNoi1);
+        dsCxNoiThanh.add(cxNoi2);
+        dsCxNgoaiThanh.add(cxNgoai1);
+        dsCxNgoaiThanh.add(cxNgoai2);
         
 
          
@@ -177,13 +177,13 @@ public class QlCxApp {
     static void tinhTongTienTungLoaiCX(){
         double tongTienNoiThanh = 0;
         double tongTienNgoaiThanh = 0;
-        for(int i = 0; i < sizeNoi; i++)
+        for(int i = 0; i < dsCxNoiThanh.size(); i++)
         {
-            tongTienNoiThanh += dsCxNoiThanh[i].tinhTien();
+            tongTienNoiThanh += dsCxNoiThanh.get(i).tinhTien();
         }
-        for(int i = 0; i < sizeNgoai; i++)
+        for(int i = 0; i < dsCxNgoaiThanh.size(); i++)
         {
-            tongTienNgoaiThanh += dsCxNgoaiThanh[i].tinhTien();
+            tongTienNgoaiThanh += dsCxNgoaiThanh.get(i).tinhTien();
         }
         
         System.out.println("Tong tienn CX Noi Thanh: " + tongTienNoiThanh);
@@ -202,20 +202,20 @@ public class QlCxApp {
         keyboard.nextLine();
         
         //tìm chuyến xe theo mã
-        for(int i = 0; i < sizeNoi; i++)
+        for(int i = 0; i < dsCxNoiThanh.size(); i++)
         {
-            if(dsCxNoiThanh[i].getMaCx() == maCx)
+            if(dsCxNoiThanh.get(i).getMaCx() == maCx)
             {
-                cxNoi = dsCxNoiThanh[i];
+                cxNoi = dsCxNoiThanh.get(i);
                 break;
             }
         }
         
-        for(int i = 0; i < sizeNgoai; i++)
+        for(int i = 0; i < dsCxNgoaiThanh.size(); i++)
         {
-            if(dsCxNgoaiThanh[i].getMaCx() == maCx)
+            if(dsCxNgoaiThanh.get(i).getMaCx() == maCx)
             {
-                cxNgoai = dsCxNgoaiThanh[i];
+                cxNgoai = dsCxNgoaiThanh.get(i);
                 break;
             }
         }
