@@ -13,10 +13,16 @@ public class MenuUI {
     //behavior
     public void getChoices(){
         Scanner keyboard = new Scanner(System.in);
+        int choice;
         while(true){
             printMenu();
             System.out.print("->");
-            keyboard.nextInt();
+            choice = keyboard.nextInt();
+            if(choice == 1){
+                ThongTinCxUI infoCxUI = new ThongTinCxUI();
+                //gửi thông điệp
+                infoCxUI.getCxInfo();
+            }
 
         }
     }
