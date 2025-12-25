@@ -1,6 +1,8 @@
 package quanlychuyenxeapp.BCE;
 
+import quanlychuyenxeapp.BCE.themCx.ThongTinCxUI;
 import java.util.Scanner;
+import quanlychuyenxeapp.BCE.xemChitietCx.ChiTietCXUI;
 
 /**
  *
@@ -22,6 +24,12 @@ public class MenuUI {
                 ThongTinCxUI infoCxUI = new ThongTinCxUI();
                 //gửi thông điệp
                 infoCxUI.getCxInfo();
+                continue;
+            }
+            //XEM CHI TIẾT CHUYẾN XE
+            if(choice == 3){
+                ChiTietCXUI chiTietUI = new ChiTietCXUI();
+                chiTietUI.getMaCX();
             }
 
         }
