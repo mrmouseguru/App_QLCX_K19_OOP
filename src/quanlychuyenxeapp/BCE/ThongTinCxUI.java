@@ -37,6 +37,19 @@ public class ThongTinCxUI {
                 int soTuyen = keyboard.nextInt();
                 System.out.print("[SO KM DI DUOC]:");
                 float soKmDiDuoc = keyboard.nextFloat();
+                RequestDTO noiDTO = new RequestDTO();
+                noiDTO.maCx = maCx;
+                noiDTO.tenTx = hoTenTx;
+                noiDTO.soXe = soXe;
+                noiDTO.donGia = donGia;
+                noiDTO.soTuyen = soTuyen;
+                noiDTO.kmDiDuoc = soKmDiDuoc;
+                noiDTO.loai = type;
+                //gửi thông điệp đến hành vi control()
+                //của đối tượng AddCxControl
+                AddCxControl addControl = new AddCxControl();
+                addControl.control(noiDTO);
+                
 //                ChuyenXeNoiThanh cxNoi = new ChuyenXeNoiThanh(maCx, hoTenTx,
 //                        soXe, donGia, soTuyen, soKmDiDuoc);
 //                dsCxNoiThanh.add(cxNoi);
