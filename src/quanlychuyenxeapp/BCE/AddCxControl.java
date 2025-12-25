@@ -12,6 +12,7 @@ public class AddCxControl {
     //behavior
     public void control(RequestDTO req)
     {
+        ResponseDTO resDTO = null;
         //điều phối
         //1.nhận dữ liêu trong đối tượng RequestDTO
         //tạo đối tượng chuyến xe tương ứng
@@ -24,11 +25,24 @@ public class AddCxControl {
         //của đối tượng AddCxDAO
         AddCxDAO addDAO =  new AddCxDAO();
         addDAO.insertCxNoi(cxNoi);
+        
+        resDTO= new ResponseDTO();
+        resDTO.maCx = String.valueOf(cxNoi.getMaCx());
+        resDTO.tenTx = cxNoi.getTenTx();
+        resDTO.soXe = cxNoi.getSoXe();
+        resDTO.loai = "Ngoai Thanh";
+        
+                
+        
         }
         
         if(req.loai == 2){
             //code
         }
+        
+        ResultAddCxUI resultUI = new ResultAddCxUI();
+        resDTO.message = "Them Thanh Cong!!";
+        resultUI.display(resDTO);
         
     }
     
