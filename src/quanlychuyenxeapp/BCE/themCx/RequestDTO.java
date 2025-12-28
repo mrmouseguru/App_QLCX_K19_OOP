@@ -1,5 +1,7 @@
 package quanlychuyenxeapp.BCE.themCx;
 
+import java.util.Date;
+
 /**
  *
  * @author phuoc
@@ -21,5 +23,6 @@ class RequestDTO {
     //ngoại thành
     public int soTuyen;
     public float kmDiDuoc;
+    public Date ngayDi;
     
 }

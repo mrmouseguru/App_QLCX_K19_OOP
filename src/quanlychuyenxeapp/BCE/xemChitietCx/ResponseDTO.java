@@ -26,6 +26,7 @@ class ResponseDTO {
     public String tien;
     public String message;
     public boolean found;
+    public String ngayDi;
 
    
     

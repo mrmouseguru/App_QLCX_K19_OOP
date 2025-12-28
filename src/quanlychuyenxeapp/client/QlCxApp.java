@@ -1,6 +1,11 @@
 package quanlychuyenxeapp.client;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
+
 import quanlychuyenxeapp.provider.ChuyenXeNgoaiThanh;
 import quanlychuyenxeapp.provider.ChuyenXeNoiThanh;
 
@@ -84,7 +89,18 @@ public class QlCxApp {
             int type = keyboard.nextInt();
             System.out.print("[DON GIA]:");
             double donGia = keyboard.nextDouble();
-            keyboard.nextLine();//nhận ký tự xuống dòng '\n'
+            keyboard.nextLine();
+            //ngay Di
+            System.out.print("[NGAY DI (dd/mm/yyyy)]:");
+            String strNgayDi = keyboard.nextLine();
+            SimpleDateFormat sDF = new SimpleDateFormat("dd/MM/yyyy");
+            Date ngayDi = null;
+            try {
+                ngayDi = sDF.parse(strNgayDi);
+            } catch (ParseException ex) {
+                System.out.println("" + ex.getMessage());
+            }
+            //keyboard.nextLine();//nhận ký tự xuống dòng '\n'
             if(type == 1){
                 
                 System.out.print("[SO TUYEN]:");
@@ -92,7 +108,7 @@ public class QlCxApp {
                 System.out.print("[SO KM DI DUOC]:");
                 float soKmDiDuoc = keyboard.nextFloat();
                 ChuyenXeNoiThanh cxNoi = new ChuyenXeNoiThanh(maCx, hoTenTx,
-                        soXe, donGia, soTuyen, soKmDiDuoc);
+                        soXe, donGia, soTuyen, soKmDiDuoc, ngayDi);
                 dsCxNoiThanh.add(cxNoi);
                 
             }
@@ -104,7 +120,7 @@ public class QlCxApp {
                 float soNgayDiDuoc = keyboard.nextFloat();
                 ChuyenXeNgoaiThanh cxNgoai = new ChuyenXeNgoaiThanh(maCx, 
                         hoTenTx, soXe, donGia, 
-                        noiDen, soNgayDiDuoc);
+                        noiDen, soNgayDiDuoc,ngayDi);
                 dsCxNgoaiThanh.add(cxNgoai);
 
 
@@ -113,17 +129,20 @@ public class QlCxApp {
     
     static void printListChuyenXe()
     {
-        System.out.printf("%-15s%-20s%-15s%-20s%10s\n", "Ma Chuyen Xe", 
+        SimpleDateFormat sDF = new SimpleDateFormat("dd/MM/yyy");
+        System.out.printf("%-15s%-20s%-15s%-20s%10s%10s\n", "Ma Chuyen Xe", 
                 "Ho Ten Tai Xe","So xe", "Don gia",
+                "Ngay Di",
                 "Thanh tien");
         for(int i =0; i < dsCxNoiThanh.size(); i++)
         {
            ChuyenXeNoiThanh cxNoi = dsCxNoiThanh.get(i);
-            System.out.printf("%-15d%-20s%-15s%-20.0f%10.0f\n", 
+            System.out.printf("%-15d%-20s%-15s%-20.0f%10s%10.0f\n", 
                     cxNoi.getMaCx(),
                     cxNoi.getTenTx(),
                     cxNoi.getSoXe(),
                     cxNoi.getDonGia(),
+                    sDF.format(cxNoi.getNgayDi()),
                     cxNoi.tinhTien()
                     
             );
@@ -132,11 +151,12 @@ public class QlCxApp {
         for(int i =0; i < dsCxNgoaiThanh.size(); i++)
         {
             ChuyenXeNgoaiThanh cxNgoai = dsCxNgoaiThanh.get(i);
-            System.out.printf("%-15d%-20s%-15s%-20.0f%10.0f\n", 
+            System.out.printf("%-15d%-20s%-15s%-20.0f%10s%10.0f\n", 
                     cxNgoai.getMaCx(),
                     cxNgoai.getTenTx(),
                     cxNgoai.getSoXe(),
                     cxNgoai.getDonGia(),
+                    sDF.format(cxNgoai.getNgayDi()),
                     cxNgoai.tinhTien()
                     
             );
@@ -147,23 +167,35 @@ public class QlCxApp {
     
     static void initData()
     {
+        int day = 20;
+        int month = 10;
+        int year = 2025;
+        
+        
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, day);
+        cal.set(Calendar.MONTH, month -1);
+        cal.set(Calendar.YEAR, year);
+                
+        Date ngayDi = cal.getTime();
+        
         ChuyenXeNoiThanh cxNoi1 = new ChuyenXeNoiThanh(1, 
                 "L Van Teo",
                 "Teo 111", 7_000, 
-                24, 10.5f);
+                24, 10.5f, ngayDi);
         ChuyenXeNoiThanh cxNoi2 = new ChuyenXeNoiThanh(2, 
                 "L Van Ty",
                 "Ty 222", 8_000, 
-                54, 9.5f);
+                54, 9.5f, ngayDi);
         
         ChuyenXeNgoaiThanh cxNgoai1 = new ChuyenXeNgoaiThanh(3, 
                 "Nguyen V Tung", "tung 333", 
                 700_000, 
-                "Can Tho", 3.5f);
+                "Can Tho", 3.5f, ngayDi);
          ChuyenXeNgoaiThanh cxNgoai2 = new ChuyenXeNgoaiThanh(4, 
                 "Trinh Van Beo", "beo 4444", 
                 900_000, 
-                "Ca Mau", 5.0f);
+                "Ca Mau", 5.0f, ngayDi);
          
         dsCxNoiThanh.add(cxNoi1);
         dsCxNoiThanh.add(cxNoi2);
@@ -195,6 +227,7 @@ public class QlCxApp {
   
     static void printChitietCx()
     {
+        SimpleDateFormat sDF = new SimpleDateFormat("dd/MM/yyyy");
         ChuyenXeNoiThanh cxNoi = null;
         ChuyenXeNgoaiThanh cxNgoai = null;
         System.out.print("[NHAP MA CX]:");
@@ -222,17 +255,18 @@ public class QlCxApp {
         
         if(cxNoi != null)
         {
-            System.out.printf("%-15s%-20s%-15s%-15s%-10s%-20s%10s\n", "Ma Chuyen Xe", 
+            System.out.printf("%-15s%-20s%-15s%-15s%-10s%-20s%10s%-10s\n", "Ma Chuyen Xe", 
                 "Ho Ten Tai Xe","So xe", "Don Gia",
-                 "So Tuyen","So KM Di Duoc",
+                 "So Tuyen","So KM Di Duoc", "Ngay Di",
                 "Thanh tien");
-            System.out.printf("%-15d%-20s%-15s%-15.0f%-10d%-20.1f%10.0f\n", 
+            System.out.printf("%-15d%-20s%-15s%-15.0f%-10d%-20.1f%-10s%10.0f\n", 
                     cxNoi.getMaCx(),
                     cxNoi.getTenTx(),
                     cxNoi.getSoXe(),
                     cxNoi.getDonGia(),
                     cxNoi.getSoTuyen(),
                     cxNoi.getKmDiDuoc(),
+                    sDF.format(cxNoi.getNgayDi()),
                     cxNoi.tinhTien()
                     
             );
@@ -241,18 +275,20 @@ public class QlCxApp {
         
         if(cxNgoai != null)
         {
-            System.out.printf("%-15s%-20s%-15s%-15s%-15s%-20s%10s\n", "Ma Chuyen Xe", 
+            System.out.printf("%-15s%-20s%-15s%-15s%-15s%-20s%-10s%10s\n", "Ma Chuyen Xe", 
                 "Ho Ten Tai Xe","So xe","Don gia",
                 "Noi Den",
                 "So Ngay Di Duoc", 
+                "Ngay Di",
                 "Thanh tien");
-            System.out.printf("%-15d%-20s%-15s%-15.0f%-15s%-20.0f%10.0f\n", 
+            System.out.printf("%-15d%-20s%-15s%-15.0f%-15s%-20.0f%-10s%10.0f\n", 
                     cxNgoai.getMaCx(),
                     cxNgoai.getTenTx(),
                     cxNgoai.getSoXe(),
                     cxNgoai.getDonGia(),
                     cxNgoai.getNoiDen(),
                     cxNgoai.getSoNgayDiDuoc(),
+                    sDF.format(cxNgoai.getNgayDi()),
                     cxNgoai.tinhTien()
                     
             );

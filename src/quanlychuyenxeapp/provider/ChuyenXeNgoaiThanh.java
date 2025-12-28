@@ -1,4 +1,7 @@
 package quanlychuyenxeapp.provider;
+
+import java.util.Date;
+
 /**
  *
  * @author phuoc
@@ -10,9 +13,9 @@ public class ChuyenXeNgoaiThanh extends ChuyenXe{
     
     public ChuyenXeNgoaiThanh(){};
     public ChuyenXeNgoaiThanh(int _maCx, String _tenTx,
-            String _soXe, double _donGia, String _noiDen, float _soNgayDiDuoc)
+            String _soXe, double _donGia, String _noiDen, float _soNgayDiDuoc, Date _ngayDi)
     {
-        super(_maCx, _tenTx, _soXe, _donGia);
+        super(_maCx, _tenTx, _soXe, _donGia, _ngayDi);
         noiDen = _noiDen;
         soNgayDiDuoc = _soNgayDiDuoc;
         

@@ -1,5 +1,8 @@
 package quanlychuyenxeapp.BCE.themCx;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -31,6 +34,16 @@ public class ThongTinCxUI {
             System.out.print("[DON GIA]:");
             double donGia = keyboard.nextDouble();
             keyboard.nextLine();//nhận ký tự xuống dòng '\n'
+            //ngày đi
+             System.out.print("[NGAY DI (dd/mm/yyyy)]:");
+            String strNgayDi = keyboard.nextLine();
+            SimpleDateFormat sDF = new SimpleDateFormat("dd/MM/yyyy");
+            Date ngayDi = null;
+            try {
+                ngayDi = sDF.parse(strNgayDi);
+            } catch (ParseException ex) {
+                System.out.println("" + ex.getMessage());
+            }
             if(type == 1){
                 
                 System.out.print("[SO TUYEN]:");
@@ -45,6 +58,7 @@ public class ThongTinCxUI {
                 noiDTO.soTuyen = soTuyen;
                 noiDTO.kmDiDuoc = soKmDiDuoc;
                 noiDTO.loai = type;
+                noiDTO.ngayDi = ngayDi;
                 //gửi thông điệp đến hành vi control()
                 //của đối tượng AddCxControl
                 AddCxControl addControl = new AddCxControl();

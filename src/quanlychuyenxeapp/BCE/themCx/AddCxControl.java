@@ -20,7 +20,7 @@ public class AddCxControl {
             ChuyenXeNoiThanh cxNoi = 
                     new ChuyenXeNoiThanh(req.maCx, req.tenTx,
                             req.soXe, req.donGia, 
-                            req.soTuyen, req.kmDiDuoc);
+                            req.soTuyen, req.kmDiDuoc,req.ngayDi);
         //gửi thông điệp đên hành vi insertCXNoi()
         //của đối tượng AddCxDAO
         AddCxDAO addDAO =  new AddCxDAO();

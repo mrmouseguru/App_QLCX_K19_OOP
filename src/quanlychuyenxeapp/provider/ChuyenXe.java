@@ -1,5 +1,7 @@
 package quanlychuyenxeapp.provider;
 
+import java.util.Date;
+
 /**
  *
  * @author phuoc
@@ -9,16 +11,28 @@ public class ChuyenXe {
     protected String tenTx;
     protected String soXe;
     protected double donGia;
+    protected Date ngayDi;
     
     protected ChuyenXe(){}
     protected ChuyenXe(int _maCx, String _tenTx,
-            String _soXe, double _donGia)
+            String _soXe, double _donGia, Date _ngayDi)
     {
         maCx = _maCx;
         tenTx = _tenTx;
         soXe = _soXe;
         donGia = _donGia;
+        ngayDi = _ngayDi;
     }
+
+    public Date getNgayDi() {
+        return ngayDi;
+    }
+
+    public void setNgayDi(Date ngayDi) {
+        this.ngayDi = ngayDi;
+    }
+    
+    
 
     public int getMaCx() {
         return maCx;

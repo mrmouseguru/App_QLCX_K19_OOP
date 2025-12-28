@@ -18,6 +18,7 @@ public class ResultChiTietUI {
         System.out.println("[TEN TX]: " + resDTO.tenTx);
         System.out.println("[SO XE]: " + resDTO.soXe);
         System.out.println("[DON GIA]: " + resDTO.donGia);
+        System.out.println("[NGAY DI]: " + resDTO.ngayDi);
         if(resDTO.xeNoiThanh){
             System.out.println("[LOAI]: " + "CHUYEN XE NGOAI THANH");
             System.out.println("[SO TUYEN]: " + resDTO.donGia);

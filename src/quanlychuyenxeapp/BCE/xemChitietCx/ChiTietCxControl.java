@@ -1,5 +1,6 @@
 package quanlychuyenxeapp.BCE.xemChitietCx;
 
+import java.text.SimpleDateFormat;
 import quanlychuyenxeapp.BCE.FakeCxDatabase;
 import quanlychuyenxeapp.provider.ChuyenXeNgoaiThanh;
 import quanlychuyenxeapp.provider.ChuyenXeNoiThanh;
@@ -13,6 +14,7 @@ public class ChiTietCxControl {
     //constructor
     //behavior
     public void control(RequestDTO reqDTO){
+        SimpleDateFormat sDF = new SimpleDateFormat("dd/MM/yyyy");
         ChuyenXeNoiThanh xeNoiThanh = null;
         ChuyenXeNgoaiThanh xeNgoaiThanh = null;
         ResponseDTO resDTO = null;
@@ -36,6 +38,7 @@ public class ChiTietCxControl {
            resDTO.kmDiDuoc = String.valueOf(xeNoiThanh.getKmDiDuoc());
            resDTO.tien = String.valueOf(xeNoiThanh.tinhTien());
            resDTO.found = true;
+           resDTO.ngayDi = sDF.format(xeNoiThanh.getNgayDi());
             
         }
         
